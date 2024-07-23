@@ -45,4 +45,6 @@ if st.button("Proses"):
 
         st.write("Beberapa kombinasi acak (10 contoh):")
         for i, combo in enumerate(random_combinations, 1):
-            st.write(f"Kombinasi {i}: {combo}")
+            st.write(f"Kombinasi {i}:")
+            for j, name in enumerate(combo, 1):
+                st.write(f"{j}. {name}")
