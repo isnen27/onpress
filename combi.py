@@ -3,7 +3,9 @@ from itertools import combinations
 import streamlit as st
 
 # Daftar nama default
-default_names = ["Vita Fauziah N", "Kartika Ratna S", "Wenny Yuanita K", "Isnen Hadi A", "Adira Nurul I", "Rinastya Meillenia", "Novia Larasati", "Syifa Ibnu S", "Eka Nabila A", "Windy Septianti", "Arya Hendro Y", "Restinuri Eliza", "Feby Nabillamah", "Nifa Aulia", "Sari Subiandini", "Salsabil S", "Tarisa S", "Selvia S", "Diva F", "Akhrinda Fadya Maulani",  "M Yusran Samad", "Riki Abdurrochim", "Galih Fathurrochman, "Naufal Rafif Ramadhan", "Edsel Fikriwafii Hidayat", "Kharisma Nur Fitriana", "Reza Haidar Mursid", "Zaki Husna Roid", "Yusron Khoirul Muslim"]
+default_names = ["Vita Fauziah N", "Kartika Ratna S", "Wenny Yuanita K", "Isnen Hadi A", "Adira Nurul I", "Rinastya Meillenia", "Novia Larasati",
+                 "Syifa Ibnu S", "Eka Nabila A", "Windy Septianti", "Arya Hendro Y", "Restinuri Eliza", "Feby Nabillamah",
+                 "Nifa Aulia", "Sari Subiandini", "Salsabil S", "Tarisa S", "Selvia S", "Diva F", "Akhrinda Fadya Maulani",  "M Yusran Samad", "Riki Abdurrochim", "Galih Fathurrochman", "Naufal Rafif Ramadhan", "Edsel Fikriwafii Hidayat", "Kharisma Nur Fitriana", "Reza Haidar Mursid", "Zaki Husna Roid", "Yusron Khoirul Muslim"]
 
 # Menampilkan judul aplikasi
 st.title("Kombinasi Nama")
@@ -41,14 +43,4 @@ if st.button("Proses"):
         st.write("Jumlah total kombinasi yang mungkin:", comb_count)
 
         # Menampilkan beberapa kombinasi acak berdasarkan input pengguna
-        if num_combinations > comb_count:
-            st.warning(f"Hanya ada {comb_count} kombinasi yang tersedia.")
-            num_combinations = comb_count
-
-        random_combinations = random.sample(all_combinations, num_combinations)
-
-        st.write(f"Menampilkan {num_combinations} kombinasi acak:")
-        for i, combo in enumerate(random_combinations, 1):
-            st.subheader(f"Kombinasi {i}:")
-            for j, name in enumerate(combo, 1):
-                st.write(f"{j}. {name}")
+       
