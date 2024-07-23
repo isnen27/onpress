@@ -3,7 +3,7 @@ from itertools import combinations
 import streamlit as st
 
 # Daftar nama default
-default_names = ["Vita Fauziah N", "Kartika Ratna S", "Wenny Yuanita K", "Isnen Hadi A", "Adira Nurul I", "Rinastya Meillenia", "Novia Larasati", "Syifa Ibnu S", "Eka Nabila A", "Windy Septianti", "Arya Hendro Y", "Restinuri Eliza", "Feby Nabillamah", "Nifa Aulia", "Sari Subiandini", "Salsabil S", "Tarisa S", "Selvia S", "Diva F", "Akhrinda Fadya Maulani",  "M Yusran Samad", "Riki Abdurrochim", "Galih Fathurrochman", "Naufal Rafif Ramadhan", "Edsel Fikriwafii Hidayat", "Kharisma Nur Fitriana", "Reza Haidar Mursid", "Zaki Husna Roid", "Yusron Khoirul Muslim"]
+default_names = ["Vita Fauziah N", "Kartika Ratna S", "Wenny Yuanita K", "Isnen Hadi A", "Adira Nurul I", "Rinastya Meillenia", "Novia Larasati", "Syifa Ibnu S", "Eka Nabila A", "Windy Septianti", "Arya Hendro Y", "Restinuri Eliza", "Feby Nabillamah", "Nifa Aulia", "Sari Subiandini", "Salsabil S", "Tarisa S", "Selvia S", "Diva F", "Akhrinda Fadya Maulani",  "M Yusran Samad", "Riki Abdurrochim", "Galih Fathurrochman", "Naufal Rafif Ramadhan", "Edsel Fikriwafii Hidayat", "Kharisma Nur Fitriana", "Reza Haidar Mursid", "Zaki Husna Roid", "Yusron Khoirul Muslim","Tegar Priyo Nugroho"]
 
 # Menampilkan judul aplikasi
 st.title("Kombinasi Nama")
