@@ -26,6 +26,9 @@ if manual_names_input:
     manual_names = [name.strip() for name in manual_names_input.split(",")]
     selected_names.extend(manual_names)
 
+# Opsi untuk memilih jumlah kombinasi yang ditampilkan
+num_combinations = st.number_input("Jumlah kombinasi yang ingin ditampilkan:", min_value=1, max_value=100, value=10)
+
 # Tombol untuk memproses kombinasi
 if st.button("Proses"):
     if len(selected_names) < 10:
@@ -40,10 +43,14 @@ if st.button("Proses"):
         # Menampilkan jumlah total kombinasi
         st.write("Jumlah total kombinasi yang mungkin:", comb_count)
 
-        # Menampilkan beberapa kombinasi acak (contohnya 10 kombinasi acak)
-        random_combinations = random.sample(all_combinations, 10)
+        # Menampilkan beberapa kombinasi acak berdasarkan input pengguna
+        if num_combinations > comb_count:
+            st.warning(f"Hanya ada {comb_count} kombinasi yang tersedia.")
+            num_combinations = comb_count
 
-        st.write("Beberapa kombinasi acak (10 contoh):")
+        random_combinations = random.sample(all_combinations, num_combinations)
+
+        st.write(f"Menampilkan {num_combinations} kombinasi acak:")
         for i, combo in enumerate(random_combinations, 1):
             st.subheader(f"Kombinasi {i}:")
             for j, name in enumerate(combo, 1):
