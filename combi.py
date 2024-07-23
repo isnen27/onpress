@@ -2,22 +2,37 @@ import random
 from itertools import combinations
 import streamlit as st
 
+# Daftar nama default
+default_names = [
+    "Vita Fauziah N", "Kartika Ratna S", "Wenny Yuanita K", "Isnen Hadi A", "Adira Nurul I", "Rinastya Meillenia", "Novia Larasati", "Syifa Ibnu S", "Eka Nabila A", "Windy Septianti",
+    "Arya Hendro Y", "Restinuri Eliza", "Feby Nabillamah", "Nifa Aulia", "Sari Subiandini", "Salsabil S", "Tarisa S", "Selvia S", "Diva F",
+]
+
 # Menampilkan judul aplikasi
 st.title("Kombinasi Nama")
 
-# Input dari pengguna
-names_input = st.text_area("Masukkan daftar nama, pisahkan dengan koma:", "")
+# Opsi input: checkbox untuk memilih nama dari daftar default
+st.subheader("Pilih nama dari daftar yang ada:")
+selected_names = []
+for name in default_names:
+    if st.checkbox(name):
+        selected_names.append(name)
 
-# Jika input tidak kosong, proses daftar nama
-if names_input:
-    # Membagi input menjadi daftar nama
-    names = [name.strip() for name in names_input.split(",")]
+# Opsi input: textarea untuk memasukkan nama secara manual
+st.subheader("Atau masukkan daftar nama secara manual, pisahkan dengan koma:")
+manual_names_input = st.text_area("Masukkan daftar nama:")
 
-    if len(names) < 10:
+if manual_names_input:
+    manual_names = [name.strip() for name in manual_names_input.split(",")]
+    selected_names.extend(manual_names)
+
+# Tombol untuk memproses kombinasi
+if st.button("Proses"):
+    if len(selected_names) < 10:
         st.error("Masukkan setidaknya 10 nama untuk membuat kombinasi.")
     else:
-        # Menghitung semua kombinasi 19 orang yang dipilih 10
-        all_combinations = list(combinations(names, 10))
+        # Menghitung semua kombinasi dari nama yang dipilih
+        all_combinations = list(combinations(selected_names, 10))
 
         # Menghitung jumlah total kombinasi
         comb_count = len(all_combinations)
