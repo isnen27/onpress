@@ -14,14 +14,10 @@ import logging
 import warnings
 
 # Load dataset
-@st.cache_data
-def load_data():
-    df = pd.read_excel("raw_Jan25.xlsx")
-    df = df.drop('No', axis=1)
-    return df
-df = load_data()
+#@st.cache_data
 
-def main(df):
+
+def main():
     # Main Page Design
     st.title(':mailbox_with_mail: :blue[TESIS]')
     st.header('_:blue[Text Classification Model]_')
@@ -44,5 +40,4 @@ def main(df):
     if menu == "Check Data Distributions" :
        st.write('''menu01 ...''')
 if __name__=="__main__":
-    df = load_data()
-    main(df)
+    main()
