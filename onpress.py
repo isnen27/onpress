@@ -28,7 +28,6 @@ def main():
                                                           "Data Prepocessing"])
     
     # Menu Functions
-    st.set_option('deprecation.showPyplotGlobalUse', False)
     if menu == "*****-----*****-----*****-----*****":
        st.write('''TESIS is a data science project ...''')
     if menu == "Statistic Descriptive":
