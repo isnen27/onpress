@@ -1,55 +1,45 @@
-import random
-from itertools import combinations
+# for basic operations
+import numpy as np
+import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
+import io
+import matplotlib.pyplot as plt
 
-# Daftar nama default
-default_names = ["Vita Fauziah N", "Kartika Ratna S", "Wenny Yuanita K", "Isnen Hadi A", "Adira Nurul I", "Rinastya Meillenia", "Novia Larasati", "Syifa Ibnu S", "Eka Nabila A", "Windy Septianti", "Arya Hendro Y", "Restinuri Eliza", "Feby Nabillamah", "Nifa Aulia", "Sari Subiandini", "Salsabil S", "Tarisa S", "Selvia S", "Diva F", "Akhrinda Fadya Maulani",  "M Yusran Samad", "Riki Abdurrochim", "Galih Fathurrochman", "Naufal Rafif Ramadhan", "Edsel Fikriwafii Hidayat", "Kharisma Nur Fitriana", "Reza Haidar Mursid", "Zaki Husna Roid", "Yusron Khoirul Muslim","Tegar Priyo Nugroho"]
+# for providing path
+import os
 
-# Menampilkan judul aplikasi
-st.title("Kombinasi Nama")
+# Enable logging for gensim - optional
+import logging
+import warnings
 
-# Opsi input: checkbox untuk memilih nama dari daftar default
-st.subheader("Pilih nama dari daftar yang ada:")
-selected_names = []
-for name in default_names:
-    if st.checkbox(name):
-        selected_names.append(name)
+# Load dataset
+@st.cache_data
+def load_data():
+    df = pd.read_excel("rawJan25.xlsx")
+    df = df.drop('No', axis=1)
+    return df
+df = load_data()
 
-# Opsi input: textarea untuk memasukkan nama secara manual
-st.subheader("Atau masukkan daftar nama secara manual, pisahkan dengan koma:")
-manual_names_input = st.text_area("Masukkan daftar nama:")
-
-if manual_names_input:
-    manual_names = [name.strip() for name in manual_names_input.split(",")]
-    selected_names.extend(manual_names)
-
-# Opsi untuk memilih jumlah kombinasi yang ditampilkan
-num_combinations = st.number_input("Jumlah kombinasi yang ingin ditampilkan:", min_value=1, max_value=100, value=10)
-
-# Tombol untuk memproses kombinasi
-if st.button("Proses"):
-    if len(selected_names) < 10:
-        st.error("Masukkan setidaknya 10 nama untuk membuat kombinasi.")
-    else:
-        # Menghitung semua kombinasi dari nama yang dipilih
-        all_combinations = list(combinations(selected_names, 10))
-
-        # Menghitung jumlah total kombinasi
-        comb_count = len(all_combinations)
-
-        # Menampilkan jumlah total kombinasi
-        st.write("Jumlah total kombinasi yang mungkin:", comb_count)
-
-        # Menampilkan beberapa kombinasi acak berdasarkan input pengguna
-        if num_combinations > comb_count:
-            st.warning(f"Hanya ada {comb_count} kombinasi yang tersedia.")
-            num_combinations = comb_count
-
-        random_combinations = random.sample(all_combinations, num_combinations)
-
-        st.write(f"Menampilkan {num_combinations} kombinasi acak:")
-        for i, combo in enumerate(random_combinations, 1):
-            st.subheader(f"Kombinasi {i}:")
-            for j, name in enumerate(combo, 1):
-                st.write(f"{j}. {name}")
-       
+def main(df):
+    # Main Page Design
+    st.title(':mailbox_with_mail: :blue[TESIS]')
+    st.header('_:blue[Text Classification Model]_')
+    st.sidebar.title("Menu")
+    menu = st.sidebar.selectbox("Exploratory Data Analysis :", ["*****-----*****-----*****-----*****", 
+                                                          "Statistic Descriptive", 
+                                                          "Check Data Distributions",
+                                                          "Data Prepocessing"])
+    
+    menu2 = st.sidebar.selectbox("Modeling:", ["*****-----*****-----*****-----*****", 
+                                                     "LED K-Means", 
+                                                     "LDA Model",
+                                                     "Model Evaluation"])
+    # Menu Functions
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    if menu == "*****-----*****-----*****-----*****" and menu2 == "*****-----*****-----*****-----*****" :
+       st.write('''TESIS is a data science project ...''')
+    if menu == "Statistic Descriptive" and menu2 == "*****-----*****-----*****-----*****" :
+       st.write('''menu00 ...''')   
+    if menu == "Check Data Distributions" :
+       st.write('''menu01 ...''')
