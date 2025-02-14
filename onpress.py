@@ -27,17 +27,13 @@ def main():
                                                           "Check Data Distributions",
                                                           "Data Prepocessing"])
     
-    menu2 = st.sidebar.selectbox("Modeling:", ["*****-----*****-----*****-----*****", 
-                                                     "LED K-Means", 
-                                                     "LDA Model",
-                                                     "Model Evaluation"])
     # Menu Functions
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    if menu == "*****-----*****-----*****-----*****" and menu2 == "*****-----*****-----*****-----*****" :
+    if menu == "*****-----*****-----*****-----*****":
        st.write('''TESIS is a data science project ...''')
-    if menu == "Statistic Descriptive" and menu2 == "*****-----*****-----*****-----*****" :
+    if menu == "Statistic Descriptive":
        st.write('''menu00 ...''')   
-    if menu == "Check Data Distributions" :
+    if menu == "Check Data Distributions":
        st.write('''menu01 ...''')
 if __name__=="__main__":
     main()
