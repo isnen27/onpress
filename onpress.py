@@ -43,3 +43,6 @@ def main(df):
        st.write('''menu00 ...''')   
     if menu == "Check Data Distributions" :
        st.write('''menu01 ...''')
+if __name__=="__main__":
+    df = load_data()
+    main(df)
