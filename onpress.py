@@ -18,7 +18,6 @@ from pandas.plotting import parallel_coordinates
 
 # Load dataset
 @st.cache_data
-@st.cache_data
 def load_data():
     df = pd.read_excel('raw_Jan25.xlsx')
     return df
