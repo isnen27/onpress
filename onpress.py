@@ -15,6 +15,7 @@ import os
 
 # from pandas_profiling import ProfileReport
 from pandas.plotting import parallel_coordinates
+from IPython.display import display, Markdown
 
 # Load dataset
 @st.cache_data
@@ -357,97 +358,99 @@ Kategori jam masuk sebagai berikut:
           st.pyplot(fig4)
 
     if menu == "Monitoring Data Individu":
-       # === Pilihan Unit ===
-       unit_list = df["unit"].unique().tolist()
-       selected_unit = st.selectbox("Pilih Unit:", unit_list)
+        # === Pilihan Unit ===
+        unit_list = df["unit"].unique().tolist()
+        selected_unit3 = st.selectbox("Pilih Unit:", unit_list)
 
-       # === Pilihan Nama Berdasarkan Unit ===
-       nama_list = df[df["unit"] == selected_unit]["nama"].unique().tolist()
-       selected_nama = st.selectbox("Pilih Nama:", nama_list)
+        # === Pilihan Nama Berdasarkan Unit ===
+        nama_list = df[df["unit"] == selected_unit3]["nama"].unique().tolist()
+        selected_nama3 = st.selectbox("Pilih Nama:", nama_list)
 
-       # === Pilihan Bulan dari Dataset ===
-       month_list = sorted(df["month"].unique().tolist())
-       selected_month = st.selectbox("Pilih Bulan:", month_list, format_func=lambda x: f"Bulan {x}")
+        # === Pilihan Bulan dari Dataset ===
+        month_list = sorted(df["month"].unique().tolist())
+        selected_month3 = st.selectbox("Pilih Bulan:", month_list, format_func=lambda x: f"Bulan {x}")
 
-       # === Filter DataFrame Berdasarkan Pilihan ===
-       filtered_df = df[
-           (df["unit"] == selected_unit) & 
-           (df["nama"] == selected_nama) & 
-           (df["month"] == selected_month)
+        # === Filter DataFrame Berdasarkan Pilihan ===
+        filtered_df = df[
+          (df["unit"] == selected_unit3) & 
+          (df["nama"] == selected_nama3) & 
+          (df["month"] == selected_month3)
         ]
 
-        # === Konversi dan Format Kolom Timedelta ===
-       for col in ["dev_in", "dev_ot"]:
-            filtered_df[col] = filtered_df[col].apply(convert_to_timedelta)
-            filtered_df[col] = filtered_df[col].apply(format_timedelta)
+        if not filtered_df.empty:
+              # === Konversi dan Format Kolom Timedelta ===
+              for col in ["dev_in", "dev_ot"]:
+                    filtered_df[col] = filtered_df[col].apply(convert_to_timedelta)
+                    filtered_df[col] = filtered_df[col].apply(format_timedelta)
 
-        # === Pilih Kolom yang Akan Ditampilkan ===
-       filtered_df = filtered_df[["date", "dev_in", "cat_in", "dev_ot", "cat_ot"]].rename(columns={
-          "date": "Tanggal",
-          "dev_in": "Deviasi Masuk",
-          "cat_in": "Kategori Jam Masuk",
-          "dev_ot": "Deviasi Keluar",
-          "cat_ot": "Kategori Jam Keluar"
-       })
+              # === Pilih Kolom yang Akan Ditampilkan ===
+              filtered_df = filtered_df[["date", "dev_in", "cat_in", "dev_ot", "cat_ot"]].rename(columns={
+                 "date": "Tanggal",
+                 "dev_in": "Deviasi Masuk",
+                 "cat_in": "Kategori Jam Masuk",
+                 "dev_ot": "Deviasi Keluar",
+                 "cat_ot": "Kategori Jam Keluar"
+              })
 
-       # === Perhitungan Rata-rata Kategori ===
-       if not filtered_df.empty:
-          avg_cat_in = round(filtered_df["Kategori Jam Masuk"].mean())
-          avg_cat_ot = round(filtered_df["Kategori Jam Keluar"].mean())
-    
-       # === Mapping Kategori ===
-       kategori_mapping = {
-        1: "Sangat Awal",
-        2: "Tepat Waktu",
-        3: "Flexy Time",
-        4: "Terlambat"
-       }
-       kategori_ot_mapping = {
-        0: "Pulang Cepat",
-        1: "Tepat Waktu",
-        2: "Lembur Sedikit",
-        3: "Lembur Sedang",
-        4: "Lembur Banyak"
-       }
-    
-       kategori_masuk = kategori_mapping.get(avg_cat_in, "Tidak Diketahui")
-       kategori_keluar = kategori_ot_mapping.get(avg_cat_ot, "Tidak Diketahui")
-    
-       # === Tampilkan Hasil Kategori ===
-       st.subheader("Hasil Kategori Berdasarkan Rata-rata:")
-       st.markdown(f"""
-       - **Kategori Jam Masuk:** {kategori_masuk} (Rata-rata: Kategori {avg_cat_in})
-       - **Kategori Jam Keluar:** {kategori_keluar} (Rata-rata: Kategori {avg_cat_ot})
-    """)
-    else:
-       st.warning("Tidak ada data untuk kombinasi Unit, Nama, dan Bulan yang dipilih.")
+              # === Perhitungan Rata-rata Kategori ===
+              avg_cat_in5 = round(filtered_df["Kategori Jam Masuk"].mean())
+              avg_cat_ot5 = round(filtered_df["Kategori Jam Keluar"].mean())
 
-    # === Hitung Frekuensi Kategori Jam Masuk dan Keluar ===
-    cat_in_counts = filtered_df["Kategori Jam Masuk"].value_counts().sort_index()
-    cat_ot_counts = filtered_df["Kategori Jam Keluar"].value_counts().sort_index()
+              # === Mapping Kategori ===
+              kategori_mapping = {
+              1: "Sangat Awal",
+              2: "Tepat Waktu",
+              3: "Flexy Time",
+              4: "Terlambat",
+              5: "Cuti/ST"
+              }
+              kategori_ot_mapping = {
+              0: "Pulang Cepat",
+              1: "Tepat Waktu",
+              2: "Lembur Sedikit",
+              3: "Lembur Sedang",
+              4: "Lembur Banyak",
+              5: "Cuti/ST"
+              }
 
-    # === Buat Grafik Bersebelahan ===
-    fig5, axs = plt.subplots(1, 2, figsize=(20, 8))
+              kategori_masuk = kategori_mapping.get(avg_cat_in5, "Tidak Diketahui")
+              kategori_keluar = kategori_ot_mapping.get(avg_cat_ot5, "Tidak Diketahui")
 
-    # Grafik Kategori Jam Masuk
-    axs[0].bar(cat_in_counts.index, cat_in_counts.values, color='orange', edgecolor='black')
-    axs[0].set_title('Distribusi Kategori Jam Masuk')
-    axs[0].set_xlabel('Kategori')
-    axs[0].set_ylabel('Frekuensi')
-    axs[0].grid(axis='y', linestyle='--', alpha=0.7)
+              # === Tampilkan Hasil Kategori ===
+              st.subheader("Hasil Kategori Berdasarkan Rata-rata:")
+              st.markdown(f"""
+        - **Kategori Jam Masuk:** {kategori_masuk} (Rata-rata: Kategori {avg_cat_in5})
+        - **Kategori Jam Keluar:** {kategori_keluar} (Rata-rata: Kategori {avg_cat_ot5})
+        """)
 
-    # Grafik Kategori Jam Keluar
-    axs[1].bar(cat_ot_counts.index, cat_ot_counts.values, color='skyblue', edgecolor='black')
-    axs[1].set_title('Distribusi Kategori Jam Keluar')
-    axs[1].set_xlabel('Kategori')
-    axs[1].set_ylabel('Frekuensi')
-    axs[1].grid(axis='y', linestyle='--', alpha=0.7)
+              # === Hitung Frekuensi Kategori Jam Masuk dan Keluar ===
+              cat_in_counts5 = filtered_df["Kategori Jam Masuk"].value_counts().sort_index()
+              cat_ot_counts5 = filtered_df["Kategori Jam Keluar"].value_counts().sort_index()
 
-    # Tampilkan Grafik di Streamlit
-    st.pyplot(fig5)
+              # === Buat Grafik Bersebelahan ===
+              fig5, axs = plt.subplots(1, 2, figsize=(20, 8))
 
-    # === Tampilkan DataFrame yang Telah Difilter ===
-    st.subheader("Detail Kehadiran Pegawai:")
-    st.dataframe(filtered_df)
+              # Grafik Kategori Jam Masuk
+              axs[0].bar(cat_in_counts5.index, cat_in_counts5.values, color='orange', edgecolor='black')
+              axs[0].set_title('Distribusi Kategori Jam Masuk')
+              axs[0].set_xlabel('Kategori')
+              axs[0].set_ylabel('Frekuensi')
+              axs[0].grid(axis='y', linestyle='--', alpha=0.7)
+
+               # Grafik Kategori Jam Keluar
+              axs[1].bar(cat_ot_counts5.index, cat_ot_counts5.values, color='skyblue', edgecolor='black')
+              axs[1].set_title('Distribusi Kategori Jam Keluar')
+              axs[1].set_xlabel('Kategori')
+              axs[1].set_ylabel('Frekuensi')
+              axs[1].grid(axis='y', linestyle='--', alpha=0.7)
+
+              # Tampilkan Grafik di Streamlit
+              st.pyplot(fig5)
+
+              # === Tampilkan DataFrame yang Telah Difilter ===
+              st.subheader("Detail Kehadiran Pegawai:")
+              st.dataframe(filtered_df)
+        else:
+           st.warning("Tidak ada data untuk kombinasi Unit, Nama, dan Bulan yang dipilih.")
 if __name__=="__main__":
     main()
