@@ -15,7 +15,6 @@ import os
 
 # from pandas_profiling import ProfileReport
 from pandas.plotting import parallel_coordinates
-from IPython.display import display, Markdown
 
 # Load dataset
 @st.cache_data
